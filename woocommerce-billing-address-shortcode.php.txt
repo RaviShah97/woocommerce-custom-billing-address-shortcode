@@ -1,0 +1,57 @@
+// Define the function that will output the content of your billing address shortcode
+function billing_address_shortcode() {
+    // Check if the user is logged in
+    if (is_user_logged_in()) {
+        // Get the current user ID
+        $customer_id = get_current_user_id();
+        // Get the last order placed by the user
+        $order = wc_get_customer_last_order($customer_id);
+
+        if ($order) {
+            // Get the order data
+            $order_data = $order->get_data();
+            // Get the billing address
+            $billing_address = $order_data['billing'];
+            // Create the HTML output for the billing address without the "Guest" label
+            $output = '<div class="billing-address">';
+            $output .= '<h4>Billing Address</h4>';
+            $output .= '<p>' . $billing_address['first_name'] . ' ' . $billing_address['last_name'] . '</p>';
+            $output .= '<p>' . $billing_address['address_1'] . '</p>';
+            $output .= '<p>' . $billing_address['address_2'] . '</p>';
+            $output .= '<p>' . $billing_address['city'] . ', ' . $billing_address['state'] . ' ' . $billing_address['postcode'] . '</p>';
+            $output .= '<p>' . $billing_address['country'] . '</p>';
+            $output .= '<p>' . $billing_address['email'] . '</p>';
+            $output .= '<p>' . $billing_address['phone'] . '</p>';
+            $output .= '</div>';
+        } else {
+            // If no order is found, display a form for the user to enter the billing address
+            $output = get_billing_address_form();
+        }
+    } else {
+        // Check if there's a billing address in the session for guest users
+        $billing_address = WC()->session->get('customer');
+
+        if ($billing_address) {
+            // Create the HTML output for the billing address with the "Guest" label
+            $output = '<div class="billing-address">';
+            $output .= '<h4>Billing Address (Guest)</h4>';
+            $output .= '<p>' . $billing_address['first_name'] . ' ' . $billing_address['last_name'] . '</p>';
+            $output .= '<p>' . $billing_address['address'] . '</p>';
+            $output .= '<p>' . $billing_address['address_2'] . '</p>';
+            $output .= '<p>' . $billing_address['city'] . ', ' . $billing_address['state'] . ' ' . $billing_address['postcode'] . '</p>';
+            $output .= '<p>' . $billing_address['country'] . '</p>';
+            $output .= '<p>' . $billing_address['email'] . '</p>';
+            $output .= '<p>' . $billing_address['phone'] . '</p>';
+            $output .= '</div>';
+        } else {
+            // If no billing address is found, display a form for the user to enter the billing address
+            $output = get_billing_address_form();
+        }
+    }
+
+    // Return the HTML output as the shortcode output
+    return $output;
+}
+
+// Register the shortcode with WordPress
+add_shortcode('billing_address', 'billing_address_shortcode');
