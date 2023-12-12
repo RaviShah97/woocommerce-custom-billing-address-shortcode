@@ -32,3 +32,18 @@ This shortcode allows you to display the user's billing address with flexibility
 - After installation, use the shortcode `[billing_address]` on any page or post to display the billing address.
 - The shortcode will adapt for both logged-in users and guest users automatically.
 
+# Shortcode Images for Billing Address
+
+## 1) Billing Address
+
+![Billing Address](https://vistavibes.in/wp-content/uploads/2023/12/Billing-Address-1.png)
+
+## 2) Billing Address with Shortcode
+
+![Billing Address with Shortcode](https://vistavibes.in/wp-content/uploads/2023/12/Billing-Address-2.png)
+
+## 3) Billing Address for Guest Users
+
+![Billing Address for Guest Users](https://vistavibes.in/wp-content/uploads/2023/12/Billing-Address-Guest.png)
+
+
